@@ -5,6 +5,8 @@ public final class CircularLinkedQueue <T> implements QueueInterface<T>
 
 	private Node queueNode;
 	private Node freeNode;
+	public static final int DEFAULT_CAPACITY = 10;
+	public static final int MAX_CAPACITY = 10;
 	
 	public CircularLinkedQueue()
 	{
