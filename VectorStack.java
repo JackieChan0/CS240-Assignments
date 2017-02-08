@@ -17,8 +17,7 @@ public final class VectorStack<T> implements StackInterface<T>
 	}
 	
 	public VectorStack(int initialCapacity)
-	{
-		
+	{	
 		stack = new Vector<T>(initialCapacity);
 		initialized = true;
 	}
