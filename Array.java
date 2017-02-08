@@ -82,8 +82,7 @@ public final class Array<T> implements StackInterface
 	@Override
 	public void clear() 
 	{
-		stack = null;
-		
+		stack = null;	
 	}
 	
 	public void checkCapacity(int capacity)
