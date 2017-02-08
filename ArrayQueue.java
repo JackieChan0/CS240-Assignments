@@ -100,6 +100,5 @@ public final class ArrayQueue <T> implements QueueInterface<T>
 		queue = null;
 		
 	}
-
 	
 }
