@@ -1,35 +1,34 @@
 package Homework3;
 
-public class List<T> implements ADTList<T> 
+//linked implementation 
+
+public class LinkedList<T> implements ADTList<T> 
 {
 
 	private Node firstNode;
 	private int numberOfEntries;
 	
-	public List()
+	public LinkedList()
 	{
 		firstNode = null;
 		numberOfEntries = 0;
 	}
 	
-	public void add(T newEntry) 
+	public boolean add(T newEntry) 
 	{
-		Node newNode = new Node(newEntry);
-		if(isEmpty())
-			firstNode = newNode;
-		else
-		{
-			Node lastNode = getNodeAt(numberOfEntries);
-			lastNode.setNextNode(newNode);
-		}
+		Node newNode = new Node(newEntry, firstNode);
+		firstNode = newNode;
 		numberOfEntries++;
+		return true;
 	}
 
 	
-	public void addAny(int newPosition, T newEntry)
+	public boolean addAny(int newPosition, T newEntry)
 	{
+		boolean success = false;
 		if((newPosition >= 1) && (newPosition <= numberOfEntries + 1))
 		{
+			
 			Node newNode = new Node(newEntry);
 			if(newPosition == 1)
 			{
@@ -44,23 +43,25 @@ public class List<T> implements ADTList<T>
 				nodeBefore.setNextNode(newNode);
 			}
 			numberOfEntries++;
+			success = true;
 		}
 		else
 			throw new IndexOutOfBoundsException("Illegal position given to add to");
+			return success;
 		
 	}
 
 
-	public T removeItem(int givenPosition) 
+	public boolean removeItem(int givenPosition) 
 	{
-			T result = null;
-			
+		
+			boolean success = false;
 			if((givenPosition >= 1) && (givenPosition <= numberOfEntries))
 			{
 				assert !isEmpty();
 				if(givenPosition == 1)
 				{
-					result = firstNode.getData();
+					
 					firstNode = firstNode.getNextNode();
 						
 				}
@@ -68,40 +69,40 @@ public class List<T> implements ADTList<T>
 				{
 					Node nodeBefore = getNodeAt(givenPosition - 1);
 					Node nodeToRemove = nodeBefore.getNextNode();
-					result = nodeToRemove.getData();
+					
 					Node nodeAfter = nodeToRemove.getNextNode();
 					nodeBefore.setNextNode(nodeAfter);
 				}
 				numberOfEntries--;
-				return result;
+				success = true;
 			}
 			else
 				throw new IndexOutOfBoundsException("Illegal position given to remove operation");
+				return success;
 	}
 
 
-	public void removeAll()
+	public boolean removeAll()
 	{
-		for(int i = numberOfEntries; i > 0; i--)
-		{
 			firstNode = null;
-		}
-			numberOfEntries = 0;
+			return true;
 	}
 
 
-	public T replace(int givenPosition, T newEntry)
+	public boolean replace(int givenPosition, T newEntry)
 	{
+		boolean success = false;
 		if((givenPosition >= 1) && (givenPosition <= numberOfEntries))
 			{
 				assert !isEmpty();
 				Node desiredNode = getNodeAt(givenPosition);
 				T originalEntry = desiredNode.getData();
 				desiredNode.setData(newEntry);
-				return originalEntry;
+				success = true;
 			}
 			else
 				throw new IndexOutOfBoundsException("Illegal position given to remove operation");
+				return success;
 	}
 
 
@@ -119,7 +120,6 @@ public class List<T> implements ADTList<T>
 
 	public T[] toArray() 
 	{
-		{
 			@SuppressWarnings("unchecked")
 			T[] result = (T[])new Object[numberOfEntries];
 			
@@ -132,7 +132,6 @@ public class List<T> implements ADTList<T>
 				index++;
 			}
 			return result;
-		}
 	}
 
 
@@ -169,8 +168,7 @@ public class List<T> implements ADTList<T>
 		return result;
 	}
 
-	
-	public int countItems(int listCount) 
+	public int countItems() 
 	{
 		return numberOfEntries;
 	}
