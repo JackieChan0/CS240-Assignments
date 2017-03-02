@@ -5,6 +5,7 @@ import java.util.EmptyStackException;
 public class LinkedStack<T> implements StackInterface<T>
 {
 	public Node topNode;
+	private int numberOfEntries;
 	
 	public LinkedStack()
 	{
@@ -84,4 +85,19 @@ public class LinkedStack<T> implements StackInterface<T>
 		
 	}
 
+	public T[] toArray()
+	{
+		  @SuppressWarnings("unchecked")
+		  T[] array = (T[])new Object[numberOfEntries];
+		  int index = 0;
+		  Node temp = topNode;
+		  
+		  while(index < numberOfEntries && temp != null) 
+		  {
+			  array[index] = temp.data;
+			  temp = temp.next;
+		      index++;
+		  }
+		  return array;
+		}
 }
