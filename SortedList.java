@@ -1,6 +1,5 @@
 package Homework4;
 
-
 public class SortedList <T extends Comparable<? super T>> implements SortedListInterface<T>
 {
 
